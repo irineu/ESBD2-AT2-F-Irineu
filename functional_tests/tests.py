@@ -47,7 +47,7 @@ class NewVsitorTest(LiveServerTestCase):
 		# mesma imediatamente
 
 		inputbox = self.browser.find_element_by_id('id_new_item')
-		priorityRadios = self.browser.find_elements_by_name('id_new_item_priority')
+		priorityRadios = self.browser.find_elements_by_name('item_priority')
 		self.assertEqual(
 			inputbox.get_attribute('placeholder'),
 			'Enter a to-do item'
@@ -73,7 +73,7 @@ class NewVsitorTest(LiveServerTestCase):
 		# por algum tempo
 
 		inputbox = self.browser.find_element_by_id('id_new_item')
-		prioritybox = self.browser.find_element_by_id('id_new_item_priority')
+		prioritybox = self.browser.find_element_by_id('item_priority')
 		inputbox.send_keys("Comprar cola instantânea")
 		prioritybox.send_keys('baixa')
 		inputbox.send_keys(Keys.ENTER)
