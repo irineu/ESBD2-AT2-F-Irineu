@@ -1,0 +1,1 @@
+[{"model": "lists.list", "pk": 1, "fields": {}}, {"model": "lists.item", "pk": 1, "fields": {"text": "teste", "list": 1}}, {"model": "lists.item", "pk": 2, "fields": {"text": "test", "list": 1}}, {"model": "lists.item", "pk": 3, "fields": {"text": "xpto", "list": 1}}]

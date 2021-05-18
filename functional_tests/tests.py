@@ -9,7 +9,7 @@ MAX_WAIT = 10
 class NewVsitorTest(LiveServerTestCase):
 
 	def setUp(self):
-		self.browser = webdriver.Firefox()
+		self.browser = webdriver.Chrome()
 
 	def tearDown(self):
 		self.browser.quit()
@@ -102,7 +102,7 @@ class NewVsitorTest(LiveServerTestCase):
 		## informação de Edith está vindo de cookies, etc
 		
 		self.browser.quit()
-		self.browser = webdriver.Firefox()
+		self.browser = webdriver.Chrome()
 
 		# Francis acessa a página inicial. Não há sinal da lista de Edith
 		self.browser.get(self.live_server_url)
