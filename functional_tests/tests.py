@@ -4,7 +4,7 @@ from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.keys import Keys
 import time
 
-MAX_WAIT = 10
+MAX_WAIT = 30
 
 class NewVsitorTest(LiveServerTestCase):
 
@@ -57,7 +57,7 @@ class NewVsitorTest(LiveServerTestCase):
 		# Ela digita "Comprar anzol" em uma nova caixa de texto
 		# e assinala prioridade alta no campo de seleção de prioridades
 
-		inputbox.send_keys('Comprar anzol')
+		inputbox.send_keys('comprar anzol')
 		priorityRadios[0].click()
 
 		# Quando ela tecla enter, a página é atualizada, e agora
@@ -73,9 +73,9 @@ class NewVsitorTest(LiveServerTestCase):
 		# por algum tempo
 
 		inputbox = self.browser.find_element_by_id('id_new_item')
-		prioritybox = self.browser.find_element_by_id('item_priority')
+		prioritybox = self.browser.find_elements_by_name('item_priority')
 		inputbox.send_keys("Comprar cola instantânea")
-		prioritybox.send_keys('baixa')
+		prioritybox[2].click()
 		inputbox.send_keys(Keys.ENTER)
 
 		# A página é atualizada novamente e agora mostra os dois
@@ -88,6 +88,13 @@ class NewVsitorTest(LiveServerTestCase):
 		# ela nota que o site gerou um URL único para ela -- há um 
 		# pequeno texto explicativo para isso.
 
+		myURL = self.browser.current_url
+		self.browser.quit()
 		
 		# Ela acessa essa URL -- sua lista de tarefas continua lá.
-		print('hi')
+		
+		self.browser = webdriver.Chrome()
+		self.browser.get(myURL)
+
+		self.wait_for_row_in_list_table('1: comprar anzol - prioridade alta')
+		self.wait_for_row_in_list_table('2: Comprar cola instantânea - prioridade baixa')
