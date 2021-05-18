@@ -34,39 +34,58 @@ class NewVsitorTest(LiveServerTestCase):
 		# aceita definir prioridades nas tarefas do tipo baixa, média e alta
 		# Ela decide verificar a homepage
 
-		
+		self.browser.get(self.live_server_url)
 
 		# Ela percebe que o título da página e o cabeçalho mencionam
 		# listas de tarefas com prioridade (priority to-do)
 
-
+		self.assertIn('To-Do', self.browser.title)
+		header_text = self.browser.find_element_by_tag_name('h1').text
+		self.assertIn('To-Do', header_text)
 
 		# Ela é convidada a inserir um item de tarefa e a prioridade da 
 		# mesma imediatamente
 
-	
+		inputbox = self.browser.find_element_by_id('id_new_item')
+		prioritybox = self.browser.find_element_by_id('id_new_item_priority')
+		self.assertEqual(
+			inputbox.get_attribute('placeholder'),
+			'Enter a to-do item'
+		)
+		self.assertEqual(
+			prioritybox.get_attribute('placeholder'),
+			'Enter a priority'
+		)
 
 		# Ela digita "Comprar anzol" em uma nova caixa de texto
 		# e assinala prioridade alta no campo de seleção de prioridades
 
-		
+		inputbox.send_keys('Buy peacock feathers')
+		prioritybox.send_keys('alta')
 
 		# Quando ela tecla enter, a página é atualizada, e agora
 		# a página lista "1 - Comprar anzol - prioridade alta"
 		# como um item em uma lista de tarefas
 
-		
+		inputbox.send_keys(Keys.ENTER)
+		self.wait_for_row_in_list_table('1: comprar anzol - prioridade alta')
+
 		# Ainda continua havendo uma caixa de texto convidando-a a 
 		# acrescentar outro item. Ela insere "Comprar cola instantâne"
 		# e assinala prioridade baixa pois ela ainda tem cola suficiente
 		# por algum tempo
 
-		
+		inputbox = self.browser.find_element_by_id('id_new_item')
+		prioritybox = self.browser.find_element_by_id('id_new_item_priority')
+		inputbox.send_keys("Comprar cola instantânea")
+		prioritybox.send_keys('baixa')
+		inputbox.send_keys(Keys.ENTER)
 
 		# A página é atualizada novamente e agora mostra os dois
 		# itens em sua lista e as respectivas prioridades
 
-		
+		self.wait_for_row_in_list_table('1: comprar anzol - prioridade alta')
+		self.wait_for_row_in_list_table('2: Comprar cola instantânea - prioridade baixa')
 
 		# Edith se pergunta se o site lembrará de sua lista. Então
 		# ela nota que o site gerou um URL único para ela -- há um 
