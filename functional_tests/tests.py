@@ -47,21 +47,18 @@ class NewVsitorTest(LiveServerTestCase):
 		# mesma imediatamente
 
 		inputbox = self.browser.find_element_by_id('id_new_item')
-		prioritybox = self.browser.find_element_by_id('id_new_item_priority')
+		priorityRadios = self.browser.find_elements_by_name('id_new_item_priority')
 		self.assertEqual(
 			inputbox.get_attribute('placeholder'),
 			'Enter a to-do item'
 		)
-		self.assertEqual(
-			prioritybox.get_attribute('placeholder'),
-			'Enter a priority'
-		)
+		self.assertEqual(len(priorityRadios), 3)
 
 		# Ela digita "Comprar anzol" em uma nova caixa de texto
 		# e assinala prioridade alta no campo de seleção de prioridades
 
-		inputbox.send_keys('Buy peacock feathers')
-		prioritybox.send_keys('alta')
+		inputbox.send_keys('Comprar anzol')
+		priorityRadios[0].click()
 
 		# Quando ela tecla enter, a página é atualizada, e agora
 		# a página lista "1 - Comprar anzol - prioridade alta"

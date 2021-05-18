@@ -6,11 +6,18 @@
 		<h1>Your To-Do list</h1>
 		<form method="POST" action="/lists/{{list.id}}/add_item">
 			<input name="item_text" id="id_new_item" placeholder="Enter a to-do item" />
+			<br/>
+			<input type="radio" id="alta" name="item_priority" value="alta">
+			<label for="alta">Alta</label><br>
+			<input type="radio" id="media" name="item_priority" value="media">
+			<label for="media">Media</label><br>
+			<input type="radio" id="baixa" name="item_priority" value="baixa">
+			<label for="baixa">Baixa</label>
 			{% csrf_token %}
 		</form>
 		<table id="id_list_table">
 			{% for item in list.item_set.all %}
-			<tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
+			<tr><td>{{ forloop.counter }}: {{ item.text }} - {{ item.priority}}</td></tr>
 			{% endfor %}
 		</table>
 	</body>

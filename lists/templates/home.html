@@ -6,6 +6,14 @@
 		<h1>Your To-Do list</h1>
 		<form method="POST" action="/lists/new">
 			<input name="item_text" id="id_new_item" placeholder="Enter a to-do item" />
+			<br/>
+			<input type="radio" id="alta" name="item_priority" value="alta">
+			<label for="alta">Alta</label><br>
+			<input type="radio" id="media" name="item_priority" value="media">
+			<label for="media">Media</label><br>
+			<input type="radio" id="baixa" name="item_priority" value="baixa">
+			<label for="baixa">Baixa</label>
+
 			{% csrf_token %}
 		</form>
 	</body>
